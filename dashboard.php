@@ -20,10 +20,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if (mysqli_query($conn, $sql)) {
         $success = "✅ Your report has been submitted successfully!";
+        $new_report_id = mysqli_insert_id($conn);
     } else {
         $error = "Error: " . mysqli_error($conn);
     }
 }
+
+// Get latest report for this user
+$username = $_SESSION['username'];
+$latest = mysqli_query($conn, "SELECT * FROM reports WHERE reporter_name='$username' ORDER BY created_at DESC LIMIT 1");
+$report = mysqli_fetch_assoc($latest);
+$patrol_status = $report ? $report['status'] : 'Under Process';
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   .status-card .status-label { font-size: 12px; color: #666; }
   .status-card .status-value { font-size: 14px; color: #1a3a6b; font-weight: 700; }
   .badge-process { background: #fff3cd; color: #856404; padding: 5px 15px; border-radius: 20px; font-size: 12px; }
+  .badge-onway { background: #cfe2ff; color: #084298; padding: 5px 15px; border-radius: 20px; font-size: 12px; }
+  .badge-arrived { background: #d1e7dd; color: #0a3622; padding: 5px 15px; border-radius: 20px; font-size: 12px; }
   footer { background-color: #1a3a6b; padding: 15px; display: flex; justify-content: center; }
   footer span { color: white; font-size: 12px; }
 </style>
@@ -120,8 +129,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 
   <div class="status-section">
-    <div class="status-card"><div class="status-icon">📋</div><div class="status-label">Report Status</div><span class="badge-process">Under Process</span></div>
-    <div class="status-card"><div class="status-icon">🚓</div><div class="status-label">Patrol Status</div><div class="status-value">On the way</div></div>
+    <div class="status-card">
+      <div class="status-icon">📋</div>
+      <div class="status-label">Patrol Status</div>
+      <?php if($patrol_status == 'Under Process') { ?>
+        <span class="badge-process">Under Process</span>
+      <?php } elseif($patrol_status == 'On the way') { ?>
+        <span class="badge-onway">On the way</span>
+      <?php } elseif($patrol_status == 'Arrived') { ?>
+        <span class="badge-arrived">Arrived</span>
+      <?php } else { ?>
+        <span class="badge-process"><?php echo $patrol_status; ?></span>
+      <?php } ?>
+    </div>
     <div class="status-card"><div class="status-icon">⏱️</div><div class="status-label">Estimated Time</div><div class="status-value">5 minutes</div></div>
     <div class="status-card"><div class="status-icon">👮</div><div class="status-label">Officer</div><div class="status-value">Mohammed Al Wahibi</div></div>
   </div>
@@ -141,9 +161,6 @@ if (navigator.geolocation) {
 
         L.marker([lat, lng]).addTo(map)
             .bindPopup('📍 Your Location').openPopup();
-
-        L.marker([lat + 0.005, lng + 0.005]).addTo(map)
-            .bindPopup('🚓 Patrol Location');
     });
 }
 </script>
