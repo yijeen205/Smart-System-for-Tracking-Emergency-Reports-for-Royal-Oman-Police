@@ -55,24 +55,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <header><div class="header-text">🛡️ ROYAL OMAN POLICE | شرطة عُمان السلطانية</div></header>
 <main>
-  <div class="login-card">
-    <div class="login-card-header">Login</div>
-    <div class="login-card-body">
-      <form method="POST" style="width:100%; display:flex; flex-direction:column; align-items:center; gap:15px;">
-        <div class="form-group">
-          <label>Username</label>
-          <input type="text" name="username" placeholder="Enter your username" required>
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" name="password" placeholder="Enter your password" required>
-        </div>
-        <?php if(isset($error)) echo "<span class='error-msg'>$error</span>"; ?>
-        <button type="submit" class="confirm-btn">Login</button>
-      </form>
-      <div class="register-link">Don't have an account? <a href="register.php">Register here</a></div>
-    </div>
-  </div>
+<div class="login-card">
+<div class="login-card-header">Login</div>
+<div class="login-card-body">
+ <form method="POST" style="width:100%; display:flex; flex-direction:column; align-items:center; gap:15px;">
+ <div class="form-group">
+<label>Username</label>
+<input type="text" name="username" placeholder="Enter your username" required>
+</div>
+<div class="form-group">
+ <label>Password</label>
+<input type="password" name="password" placeholder="Enter your password" required>
+</div>
+ <?php if(isset($error)) echo "<span class='error-msg'>$error</span>"; ?>
+<button type="submit" class="confirm-btn">Login</button>
+</form>
+<div class="register-link">Don't have an account? <a href="register.php">Register here</a></div>
+</div>
+</div>
 </main>
 <footer><span>🛡️ ROYAL OMAN POLICE | شرطة عُمان السلطانية</span></footer>
 </body>

@@ -51,8 +51,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
  <div class="register-card-body">
  <form method="POST">
  <div class="form-group">
-   <label>Username</label>
-   <input type="text" name="username" placeholder="Enter your username" required>
+ <label>Username</label>
+<input type="text" name="username" placeholder="Enter your username" required>
  </div>
  <div class="form-group">
    <label>Date of Birth</label>
@@ -73,10 +73,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
  <div class="form-group">
    <label>Account Type</label>
    <select name="role" required>
-     <option value="">Select account type</option>
-     <option value="reporter">Reporter (Normal User)</option>
-     <option value="officer">Police Officer</option>
-   </select>
+<option value="">Select account type</option>
+<option value="reporter">Reporter (Normal User)</option>
+<option value="officer">Police Officer</option>
+</select>
  </div>
  <br>
  <button type="submit" class="confirm-btn">Register</button>

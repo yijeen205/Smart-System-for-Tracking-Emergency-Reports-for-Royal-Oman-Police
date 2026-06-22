@@ -18,6 +18,9 @@ if (isset($_GET['update_status'])) {
 
 $sql = "SELECT * FROM reports ORDER BY created_at DESC";
 $result = mysqli_query($conn, $sql);
+if (!$result) {
+    die("Query Error: " . mysqli_error($conn));
+}
 ?>
 
 <!DOCTYPE html>
@@ -72,23 +75,23 @@ $result = mysqli_query($conn, $sql);
   </div>
 
   <div class="reports-section">
-    <h2 style="margin-bottom:15px;">📋 Emergency Reports</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Civil No.</th>
-          <th>Incident Type</th>
-          <th>Details</th>
-          <th>Location</th>
-          <th>Status</th>
-          <th>Update Status</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
+ <h2 style="margin-bottom:15px;">📋 Emergency Reports</h2>
+ <table>
+<thead>
+<tr>
+  <th>ID</th>
+  <th>Name</th>
+  <th>Phone</th>
+  <th>Civil No.</th>
+  <th>Incident Type</th>
+   <th>Details</th>
+   <th>Location</th>
+  <th>Status</th>
+   <th>Update Status</th>
+  <th>Date</th>
+</tr>
+ </thead>
+<tbody>
         <?php while($row = mysqli_fetch_assoc($result)) { ?>
         <tr>
           <td><?php echo $row['id']; ?></td>
@@ -99,25 +102,25 @@ $result = mysqli_query($conn, $sql);
           <td><?php echo $row['details']; ?></td>
           <td><?php echo $row['location']; ?></td>
           <td>
-            <?php if($row['status'] == 'Under Process') { ?>
-              <span class="badge-process">Under Process</span>
-            <?php } elseif($row['status'] == 'On the way') { ?>
-              <span class="badge-onway">On the way</span>
-            <?php } else { ?>
-              <span class="badge-arrived">Arrived</span>
-            <?php } ?>
-          </td>
-          <td>
-            <a href="police.php?update_status=<?php echo $row['id']; ?>&status=Under+Process" class="btn-status btn-process">Under Process</a>
-            <a href="police.php?update_status=<?php echo $row['id']; ?>&status=On+the+way" class="btn-status btn-onway">On the way</a>
-            <a href="police.php?update_status=<?php echo $row['id']; ?>&status=Arrived" class="btn-status btn-arrived">Arrived</a>
-          </td>
-          <td><?php echo $row['created_at']; ?></td>
-        </tr>
-        <?php } ?>
-      </tbody>
-    </table>
-  </div>
+ <?php if($row['status'] == 'Under Process') { ?>
+ <span class="badge-process">Under Process</span>
+ <?php } elseif($row['status'] == 'On the way') { ?>
+ <span class="badge-onway">On the way</span>
+  <?php } else { ?>
+ <span class="badge-arrived">Arrived</span>
+ <?php } ?>
+  </td>
+ <td>
+ <a href="police.php?update_status=<?php echo $row['id']; ?>&status=Under+Process" class="btn-status btn-process">Under Process</a>
+ <a href="police.php?update_status=<?php echo $row['id']; ?>&status=On+the+way" class="btn-status btn-onway">On the way</a>
+<a href="police.php?update_status=<?php echo $row['id']; ?>&status=Arrived" class="btn-status btn-arrived">Arrived</a>
+</td>
+ <td><?php echo $row['created_at']; ?></td>
+ </tr>
+ <?php } ?>
+ </tbody>
+</table>
+</div>
 </main>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Get latest report for this user
 $username = $_SESSION['username'];
 $latest = mysqli_query($conn, "SELECT * FROM reports WHERE reporter_name='$username' ORDER BY created_at DESC LIMIT 1");
-$report = mysqli_fetch_assoc($latest);
+$report = $latest ? mysqli_fetch_assoc($latest) : null;
 $patrol_status = $report ? $report['status'] : 'Under Process';
 ?>
 
@@ -82,32 +82,32 @@ $patrol_status = $report ? $report['status'] : 'Under Process';
   
   <div class="report-form">
     <form method="POST">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" name="reporter_name" placeholder="Enter your full name" required>
-        </div>
-        <div class="form-group">
-          <label>Phone Number</label>
-          <input type="tel" name="phone" placeholder="Enter your phone number" required>
-        </div>
-      </div>
+   <div class="form-row">
+   <div class="form-group">
+   <label>Full Name</label>
+    <input type="text" name="reporter_name" placeholder="Enter your full name" required>
+   </div>
+    <div class="form-group">
+    <label>Phone Number</label>
+     <input type="tel" name="phone" placeholder="Enter your phone number" required>
+   </div>
+  </div>
       <div class="form-row">
         <div class="form-group">
           <label>Civil Number</label>
-          <input type="text" name="civil_number" placeholder="Enter your civil ID" required>
+      <input type="text" name="civil_number" placeholder="Enter your civil ID" required>
         </div>
         <div class="form-group">
-          <label>Incident Type</label>
+   <label>Incident Type</label>
           <select name="incident_type" required>
             <option value="">Select incident type</option>
-            <option>Traffic Accident</option>
-            <option>Theft</option>
-            <option>Fire</option>
-            <option>Medical Emergency</option>
-            <option>Other</option>
-          </select>
-        </div>
+      <option>Traffic Accident</option>
+      <option>Theft</option>
+     <option>Fire</option>
+     <option>Medical Emergency</option>
+      <option>Other</option>
+      </select>
+      </div>
       </div>
       <div class="form-group">
         <label>📝 Additional Details</label>
@@ -130,21 +130,21 @@ $patrol_status = $report ? $report['status'] : 'Under Process';
 
   <div class="status-section">
     <div class="status-card">
-      <div class="status-icon">📋</div>
-      <div class="status-label">Patrol Status</div>
-      <?php if($patrol_status == 'Under Process') { ?>
-        <span class="badge-process">Under Process</span>
-      <?php } elseif($patrol_status == 'On the way') { ?>
-        <span class="badge-onway">On the way</span>
-      <?php } elseif($patrol_status == 'Arrived') { ?>
-        <span class="badge-arrived">Arrived</span>
-      <?php } else { ?>
-        <span class="badge-process"><?php echo $patrol_status; ?></span>
-      <?php } ?>
-    </div>
-    <div class="status-card"><div class="status-icon">⏱️</div><div class="status-label">Estimated Time</div><div class="status-value">5 minutes</div></div>
-    <div class="status-card"><div class="status-icon">👮</div><div class="status-label">Officer</div><div class="status-value">Mohammed Al Wahibi</div></div>
-  </div>
+ <div class="status-icon">📋</div>
+<div class="status-label">Patrol Status</div>
+ <?php if($patrol_status == 'Under Process') { ?>
+  <span class="badge-process">Under Process</span>
+  <?php } elseif($patrol_status == 'On the way') { ?>
+<span class="badge-onway">On the way</span>
+<?php } elseif($patrol_status == 'Arrived') { ?>
+<span class="badge-arrived">Arrived</span>
+<?php } else { ?>
+ <span class="badge-process"><?php echo $patrol_status; ?></span>
+<?php } ?>
+</div>
+ <div class="status-card"><div class="status-icon">⏱️</div><div class="status-label">Estimated Time</div><div class="status-value">Calculating...</div></div>
+<div class="status-card"><div class="status-icon">👮</div><div class="status-label">Officer</div><div class="status-value">Assigned soon</div></div>
+</div>
 </main>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

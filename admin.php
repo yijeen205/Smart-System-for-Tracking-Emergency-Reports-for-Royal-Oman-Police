@@ -97,16 +97,16 @@ $reports = mysqli_query($conn, "SELECT * FROM reports ORDER BY created_at DESC")
   <div class="section">
     <h2>👥 Manage Users</h2>
     <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Username</th>
-          <th>Role</th>
-          <th>Created At</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
+ <thead>
+  <tr>
+   <th>ID</th>
+    <th>Username</th>
+  <th>Role</th>
+ <th>Created At</th>
+   <th>Action</th>
+ </tr>
+ </thead>
+ <tbody>
         <?php while($user = mysqli_fetch_assoc($users)) { ?>
         <tr>
           <td><?php echo $user['id']; ?></td>
@@ -118,19 +118,19 @@ $reports = mysqli_query($conn, "SELECT * FROM reports ORDER BY created_at DESC")
                class="btn-delete" 
                onclick="return confirm('Are you sure you want to delete this user?')">
               Delete
-            </a>
-          </td>
-        </tr>
-        <?php } ?>
-      </tbody>
-    </table>
+ </a>
+ </td>
+ </tr>
+ <?php } ?>
+</tbody>
+ </table>
   </div>
 
   <!-- Reports Table -->
   <div class="section">
-    <h2>📋 Manage Reports</h2>
-    <table>
-      <thead>
+<h2>📋 Manage Reports</h2>
+<table>
+<thead>
         <tr>
           <th>ID</th>
           <th>Name</th>
@@ -141,34 +141,34 @@ $reports = mysqli_query($conn, "SELECT * FROM reports ORDER BY created_at DESC")
           <th>Status</th>
           <th>Date</th>
           <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php while($report = mysqli_fetch_assoc($reports)) { ?>
-        <tr>
-          <td><?php echo $report['id']; ?></td>
-          <td><?php echo $report['reporter_name']; ?></td>
-          <td><?php echo $report['phone']; ?></td>
-          <td><?php echo $report['incident_type']; ?></td>
-          <td><?php echo $report['details']; ?></td>
-          <td><?php echo $report['location']; ?></td>
-          <td>
-            <?php if($report['status'] == 'Resolved') { ?>
-              <span class="badge-resolved">Resolved</span>
-            <?php } else { ?>
-              <span class="badge-process">Under Process</span>
-            <?php } ?>
-          </td>
-          <td><?php echo $report['created_at']; ?></td>
-          <td>
-            <?php if($report['status'] != 'Resolved') { ?>
-            <a href="admin.php?resolve_report=<?php echo $report['id']; ?>" 
+ </tr>
+ </thead>
+<tbody>
+ <?php while($report = mysqli_fetch_assoc($reports)) { ?>
+ <tr>
+ <td><?php echo $report['id']; ?></td>
+<td><?php echo $report['reporter_name']; ?></td>
+ <td><?php echo $report['phone']; ?></td>
+  <td><?php echo $report['incident_type']; ?></td>
+ <td><?php echo $report['details']; ?></td>
+<td><?php echo $report['location']; ?></td>
+ <td>
+<?php if($report['status'] == 'Resolved') { ?>
+ <span class="badge-resolved">Resolved</span>
+<?php } else { ?>
+ <span class="badge-process">Under Process</span>
+<?php } ?>
+ </td>
+<td><?php echo $report['created_at']; ?></td>
+ <td>
+<?php if($report['status'] != 'Resolved') { ?>
+ <a href="admin.php?resolve_report=<?php echo $report['id']; ?>" 
                class="btn-resolve">
               Resolve
-            </a>
-            <?php } ?>
-          </td>
-        </tr>
+ </a>
+  <?php } ?>
+</td>
+</tr>
  <?php } ?>
 </tbody>
 </table>
